@@ -97,7 +97,7 @@ iq = []
 for key in groups.keys():
     iq += [inequality(key)]
 
-iq = (lpSum(iq) <= R, 'Основное ценовое ограничние')
+iq = (lpSum(iq) <= 0.8*R, 'Основное ценовое ограничние')
 limitations += [iq]
 
 for limit in limitations:

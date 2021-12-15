@@ -1,6 +1,8 @@
 import json
 import numpy as np
 
+# 1 дерево с разными исходными данными
+
 data = None
 
 with open('data.json', 'r') as f:

@@ -50,6 +50,8 @@ matrix = np.array([
     [800, 200, 400]
 ])
 
+
+
 solution_one = solve_task(matrix=matrix)
 solution_two = solve_task(matrix=matrix, max_solve=True)
 
