@@ -116,8 +116,20 @@ print(f"status: {model.status}, {LpStatus[model.status]}")
 
 print(f"objective: {model.objective.value()}")
 
+teams = {}
+
 for var in model.variables():
+    try:
+        teams[var.name[:-1].lower()][var.name[-1]] = int(var.value())
+    except:
+        teams[var.name[:-1].lower()] = {var.name[-1]: int(var.value())}
     print(f"{var.name}: {var.value()}")
+
+teams = json.dumps(teams)
+with open('data.json', 'w') as f:
+    f.write(teams)
 
 for name, constraint in model.constraints.items():
     print(f"{name}: {constraint.value()}")
+
+print(teams)
