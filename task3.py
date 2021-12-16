@@ -6,8 +6,9 @@ from anytree import Node, RenderTree
 with open('data.json', 'r') as f:
     data = json.load(f)
 
-common_count = sum([sum(data[key].values()) for key in data.keys()])
+common_count = {key: sum(data[key].values()) for key in data.keys()}
 print(common_count)
+
 
 def get_prob(n):
 
@@ -74,11 +75,15 @@ for structure in data:
                                                                          + employee["q"][0] * employee["q"][1],
                                                                          2
                                                                          )
-    means[structure['name']]['min'] = min(means[structure['name']].values())
+    # means[structure['name']]['min'] = min(means[structure['name']].values())
+
+    means[structure['name']] = {k: v for k, v in sorted(means[structure['name']].items(), key=lambda item: item[1])}
     trees += [root]
 
-for tree in trees:
+for tree, mean_key in zip(trees, means.keys()):
     for pre, fill, node in RenderTree(tree):
         print("%s%s" % (pre, node.name))
+    print(mean_key)
+    for emp in means[mean_key]:
+        print(emp, means[mean_key][emp])
 
-print(means)
