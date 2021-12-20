@@ -13,7 +13,7 @@ def solve_task(matrix, max_solve=False):
 
     model = LpProblem(name="Game", sense=LpMaximize)
 
-    x = [LpVariable(name="x{}".format(i + 1), lowBound=0) for i in range(elements_count)]
+    x = [LpVariable(name="y{}".format(i + 1), lowBound=0) for i in range(elements_count)]
     print('Переменные:', x)
 
     obj_func = -lpSum(x)
@@ -38,7 +38,7 @@ def solve_task(matrix, max_solve=False):
         F = -F
 
     return {
-        "x": np.array([var.value() for var in model.variables()]),
+        "y": np.array([var.value() for var in model.variables()]),
         "F":  F,
         "v": 1 / F
     }
@@ -51,12 +51,11 @@ matrix = np.array([
 ])
 
 
-
 solution_one = solve_task(matrix=matrix)
 solution_two = solve_task(matrix=matrix, max_solve=True)
 
-S_one = solution_one['x'] * solution_one['v']
-S_two = solution_two['x'] * solution_two['v']
+S_one = solution_one['y'] * solution_one['v']
+S_two = solution_two['y'] * solution_two['v']
 
 print(solution_one['v'], solution_two['v'])
 print(S_one, S_two)

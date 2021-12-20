@@ -100,6 +100,19 @@ for key in groups.keys():
 iq = (lpSum(iq) <= 0.8*R, 'Основное ценовое ограничние')
 limitations += [iq]
 
+
+counts = {
+    'sa': 1,
+    'dev': 2,
+    'qa': 2,
+    'db': 1
+}
+
+for key in counts.keys():
+    limitations += [
+        (lpSum(groups[key]) >= counts[key], 'Ограничение по ' + key)
+    ]
+
 for limit in limitations:
     print(limit)
 
